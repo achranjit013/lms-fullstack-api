@@ -1,0 +1,15 @@
+@rootAPI = http://localhost:8000/api/v1
+@userAPI = {{rootAPI}}/users
+
+### create user
+POST {{userAPI}}/admin
+Content-Type: application/json
+
+{
+    "fname": "Ranjit",
+    "lname": "Acharya",
+    "address": "6-12 Hudson St",
+    "phone": "0123456789",
+    "email": "r@r.com",
+    "password":"1"
+}

@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import { connectDB } from "./src/config/dbConfig.js";
 
 const app = express();
 
@@ -9,11 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // db connect
+connectDB();
 
 // middlewares
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+
+// api endpoints
+import userRouter from "./src/routers/UserRouter.js";
+app.use("/api/v1/users", userRouter);
 
 // basic setup
 app.get("/", (req, res, next) => {
