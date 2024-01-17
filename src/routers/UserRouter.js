@@ -1,11 +1,57 @@
 import express from "express";
-import { newUserValidation } from "../middlewares/joiValidation.js";
-import { hashPassword } from "../utils/bcryptHelper.js";
-import { createUser } from "../models/user/UserModels.js";
+import {
+  newUserValidation,
+  userLoginValidation,
+} from "../middlewares/joiValidation.js";
+import { comparePassword, hashPassword } from "../utils/bcryptHelper.js";
+import {
+  createUser,
+  getAllUsersByRole,
+  getUserByEmail,
+} from "../models/user/UserModel.js";
+import { createJWTs } from "../utils/jwtHelper.js";
+import { adminAuth, userAuth } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// create new user
+// login user
+router.post("/login", userLoginValidation, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // get user by email
+    const user = await getUserByEmail(email);
+
+    // if user exists
+    if (user?._id) {
+      // compare db password with the user input password
+      const isMatched = comparePassword(password, user.password);
+
+      // if passwords match, create tokens (jwts)
+      if (isMatched) {
+        const jwts = createJWTs(email);
+
+        res.json({
+          status: "success",
+          message: "Login successfull",
+          jwts,
+        });
+      }
+    }
+
+    res.json({
+      status: "error",
+      message:
+        "Oops! It seems like there was an issue with your login credentials. Please double-check your username and/or password and try again. If you need assistance, contact support. Thank you!",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// ======== below this are all private routers ========
+
+// create new user (admin)
 router.post("/admin", newUserValidation, async (req, res, next) => {
   try {
     // encrypt password
@@ -39,8 +85,47 @@ router.post("/admin", newUserValidation, async (req, res, next) => {
   }
 });
 
-// read user
+// get user info after login
+router.get("/", userAuth, async (req, res, next) => {
+  try {
+    res.json({
+      status: "success",
+      message: "user info",
+      user: req.userInfo,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
-// update user
+// read user (all admins)
+router.get("/admin-list", adminAuth, async (req, res, next) => {
+  try {
+    const userList = await getAllUsersByRole({ role: "admin" });
+
+    res.json({
+      status: "success",
+      message: "Admin list",
+      userList,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// read user (all students)
+router.get("/student-list", adminAuth, async (req, res, next) => {
+  try {
+    const userList = await getAllUsersByRole({ role: "student" });
+
+    res.json({
+      status: "success",
+      message: "Student list",
+      userList,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

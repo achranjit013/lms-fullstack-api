@@ -43,3 +43,13 @@ export const newUserValidation = (req, res, next) => {
 
   validationProcessor({ schemaObj, req, res, next });
 };
+
+// validate login user
+export const userLoginValidation = (req, res, next) => {
+  const schemaObj = {
+    email: EMAILREQ,
+    password: SHORTSTRREQ,
+  };
+
+  validationProcessor({ schemaObj, req, res, next });
+};

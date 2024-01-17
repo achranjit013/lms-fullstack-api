@@ -1,7 +1,7 @@
 @rootAPI = http://localhost:8000/api/v1
 @userAPI = {{rootAPI}}/users
 
-### create user
+### create user (admin)
 POST {{userAPI}}/admin
 Content-Type: application/json
 
@@ -13,3 +13,23 @@ Content-Type: application/json
     "email": "r@r.com",
     "password":"1"
 }
+### login user
+POST {{userAPI}}/login
+Content-Type: application/json
+
+{
+    "email": "r@r.com",
+    "password":"1"
+}
+
+### get user info 
+GET {{userAPI}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA
+
+### read student 
+GET {{userAPI}}/student-list
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA
+
+### ### read admin
+GET {{userAPI}}/admin-list
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA

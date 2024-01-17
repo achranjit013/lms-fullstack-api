@@ -6,7 +6,12 @@ export const createUser = (obj) => {
   return UserSchema(obj).save();
 };
 
-// read
+// read: get user by email
+export const getUserByEmail = (email) => {
+  return UserSchema.findOne({ email });
+};
+
+// read: get all users by their role
 export const getAllUsersByRole = (filter) => {
   const selectedProperties = {
     _id: 1,
@@ -22,7 +27,7 @@ export const getAllUsersByRole = (filter) => {
   return UserSchema.find(filter, selectedProperties);
 };
 
-// update
-export const updateUser = (filter, data) => {
-  return UserSchema.findOneAndUpdate(filter, { data });
+// update user table with refresh token
+export const updateUserRefreshJWT = async (email, refreshJWT) => {
+  return await UserSchema.findOneAndUpdate({ email }, { refreshJWT });
 };
