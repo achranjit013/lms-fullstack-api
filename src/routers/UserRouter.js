@@ -52,7 +52,7 @@ router.post("/login", userLoginValidation, async (req, res, next) => {
 // ======== below this are all private routers ========
 
 // create new user (admin)
-router.post("/admin", newUserValidation, async (req, res, next) => {
+router.post("/admin-signup", newUserValidation, async (req, res, next) => {
   try {
     // encrypt password
     req.body.password = hashPassword(req.body.password);
@@ -68,7 +68,6 @@ router.post("/admin", newUserValidation, async (req, res, next) => {
           status: "success",
           message:
             "Congratulations!!! Your account has been created! Welcome to the admin panel, where you can manage and optimize your library system. Let the seamless administration begin!",
-          user,
         })
       : res.json({
           status: "error",

@@ -2,15 +2,15 @@
 @userAPI = {{rootAPI}}/users
 
 ### create user (admin)
-POST {{userAPI}}/admin
+POST {{userAPI}}/admin-signup
 Content-Type: application/json
 
 {
-    "fname": "Ranjit",
-    "lname": "Acharya",
+    "fname": "Nandita",
+    "lname": "Ojha",
     "address": "6-12 Hudson St",
     "phone": "0123456789",
-    "email": "r@r.com",
+    "email": "n@n.com",
     "password":"1"
 }
 ### login user
