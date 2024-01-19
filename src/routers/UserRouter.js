@@ -131,6 +131,6 @@ router.get("/student-list", adminAuth, async (req, res, next) => {
   }
 });
 
-router.get("/get-accessJWT", refreshAuth);
+router.get("/get-accessjwt", refreshAuth);
 
 export default router;

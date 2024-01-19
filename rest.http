@@ -24,7 +24,8 @@ Content-Type: application/json
 
 ### get user info 
 GET {{userAPI}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6eyJlbWFpbCI6InJAci5jb20ifSwiaWF0IjoxNzA1NjU2OTI0LCJleHAiOjE3MDU2NTY5ODR9.IMa3XXpqfO--kfA3-ExV7CRQWOHWDmiF4ewE1X3aRpk
+
 
 ### read student 
 GET {{userAPI}}/student-list

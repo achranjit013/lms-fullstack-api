@@ -4,7 +4,7 @@ import { updateUserRefreshJWT } from "../models/user/UserModel.js";
 
 export const createAccessJWT = (email) => {
   const token = jwt.sign({ email }, process.env.JWT_ACCESS_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "1m",
   });
 
   createSession({ token });

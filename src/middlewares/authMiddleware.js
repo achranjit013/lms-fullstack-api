@@ -82,13 +82,13 @@ export const refreshAuth = async (req, res, next) => {
     if (decoded?.email) {
       // get admin by email and refreshJWT
       const user = await getOneAdmin({
-        email: decoded?.email,
+        email: decoded.email,
         refreshJWT: authorization,
       });
 
       if (user?._id) {
         // create new access jwt
-        const accessJWT = createAccessJWT({ email: user.email });
+        const accessJWT = createAccessJWT(user.email);
 
         return res.json({
           status: "success",
