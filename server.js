@@ -18,7 +18,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 // api endpoints
-import userRouter from "./src/routers/UserRouter.js";
+import userRouter from "./src/routers/userRouter.js";
 app.use("/api/v1/users", userRouter);
 
 // basic setup

@@ -11,6 +11,11 @@ export const getUserByEmail = (email) => {
   return UserSchema.findOne({ email });
 };
 
+// read: get one admin
+export const getOneAdmin = (filter) => {
+  return UserSchema.findOne(filter);
+};
+
 // read: get all users by their role
 export const getAllUsersByRole = (filter) => {
   const selectedProperties = {

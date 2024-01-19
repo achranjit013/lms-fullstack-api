@@ -10,7 +10,11 @@ import {
   getUserByEmail,
 } from "../models/user/UserModel.js";
 import { createJWTs } from "../utils/jwtHelper.js";
-import { adminAuth, userAuth } from "../middlewares/authMiddleware.js";
+import {
+  adminAuth,
+  refreshAuth,
+  userAuth,
+} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -126,5 +130,7 @@ router.get("/student-list", adminAuth, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/get-accessJWT", refreshAuth);
 
 export default router;
