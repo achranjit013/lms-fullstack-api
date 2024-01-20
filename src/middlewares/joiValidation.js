@@ -53,3 +53,17 @@ export const userLoginValidation = (req, res, next) => {
 
   validationProcessor({ schemaObj, req, res, next });
 };
+
+// validate new book
+export const newBookValidation = (req, res, next) => {
+  const schemaObj = {
+    thumbnail: LONGSTRREQ,
+    name: SHORTSTRREQ,
+    author: SHORTSTRREQ,
+    publishYear: SHORTSTRREQ,
+    isbn: SHORTSTRREQ,
+    description: LONGSTRREQ,
+  };
+
+  validationProcessor({ schemaObj, req, res, next });
+};

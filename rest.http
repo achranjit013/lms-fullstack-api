@@ -1,6 +1,8 @@
 @rootAPI = http://localhost:8000/api/v1
 @userAPI = {{rootAPI}}/users
+@bookAPI = {{rootAPI}}/books
 
+# user api
 ### create user (admin)
 POST {{userAPI}}/admin-signup
 Content-Type: application/json
@@ -34,3 +36,28 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJp
 ### ### read admin
 GET {{userAPI}}/admin-list
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA
+
+#book api
+### create book
+POST {{bookAPI}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU3ODYzMjUsImV4cCI6MTcwNTc4NzIyNX0.5PavR_RXfS5WBaMgwvL4xkD77aJg5AmrPPTook7Awbs
+
+{
+    "thumbnail": "https://unsplash.com/photos/open-book-on-top-of-several-stacked-books-9DaOYUYnOls",
+    "name": "Foul Play",
+    "author": "Fiona McIntosh",
+    "publishYear": "2024",
+    "isbn": "9781761048012",
+    "description": "The heart-stopping new crime thriller in the Detective Jack Hawksworth series by blockbuster author Fiona McIntosh. Superstar footballer Luca Bruni is being blackmailed for a night of lust he swears he didn't participate in...except the ransom photo denies that. A media darling on and off the field, he has powerful charisma, a perfect home life he'll do anything to protect, and more money than he knows what to do with. He's determined to defy the extortion racket. When Detective Superintendent Jack Hawksworth learns that the cunning mastermind behind this crime has already swindled a dozen of the world's most highly prized male athletes, he is instructed to keep the situation from escalating and prevent a media frenzy. Intrigued by the creativity of the crime and the shockwaves it is creating through the global sporting fraternity, Jack begins a journey into a case that has tentacles far more wide-reaching that he ever imagined - and far more deadly. The explosive new blockbuster from an internationally bestselling author. GOODREADS READER REVIEWS for the Jack Hawksworth series - 'Gritty, intense, chilling!' 'Tension lined the pages and the pace was electric.' 'The research is impeccable and the plot enthralling.' 'Fiona's storytelling is phenomenal '"
+}
+
+### get all books for admin
+GET {{bookAPI}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU3OTAxODksImV4cCI6MTcwNTc5MTA4OX0.qaCLXFB-41GZRYng3lxA5v5Nz6zq-8vSibWejzZ67Ec
+
+### get books for home page - only active books
+GET {{bookAPI}}
+
+### get one book
+GET {{bookAPI}}/65ab28becc1b0e20668bab9d

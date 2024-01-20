@@ -80,7 +80,7 @@ router.post("/admin-signup", newUserValidation, async (req, res, next) => {
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
       error.message =
-        "Uh-oh! It seems there's already a user with this email. Please use a different email or try logging in. If you need assistance, contact support. Thank you!";
+        "Uh-oh! It seems there's already a user with this email. Please use a different email or try logging in. Thank you!";
       error.errorCode = 200;
     }
     next(error);

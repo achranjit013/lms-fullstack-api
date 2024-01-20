@@ -19,7 +19,9 @@ app.use(morgan("dev"));
 
 // api endpoints
 import userRouter from "./src/routers/userRouter.js";
+import bookRouter from "./src/routers/bookRouter.js";
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/books", bookRouter);
 
 // basic setup
 app.get("/", (req, res, next) => {
