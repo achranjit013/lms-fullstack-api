@@ -70,13 +70,12 @@ router.post("/admin-signup", newUserValidation, async (req, res, next) => {
     user?._id
       ? res.json({
           status: "success",
-          message:
-            "Congratulations!!! Your account has been created! Welcome to the admin panel, where you can manage and optimize your library system. Let the seamless administration begin!",
+          message: "Congratulations!!! A new admin account has been created!",
         })
       : res.json({
           status: "error",
           message:
-            "Sorry!!! We're currently unable to create your account. Please double-check your information or try again later. If you need assistance, contact support. Thank you!",
+            "Sorry!!! We're currently unable to create a new admin account. Please try again later. Thank you!",
         });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key error collection")) {
