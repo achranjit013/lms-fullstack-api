@@ -61,3 +61,22 @@ GET {{bookAPI}}
 
 ### get one book
 GET {{bookAPI}}/65ab28becc1b0e20668bab9d
+
+### update book
+PUT {{bookAPI}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU4Njg0OTIsImV4cCI6MTcwNTg2OTM5Mn0._hPoNTGNDh0EdpSjdr8TqGj4GsFIFtSvD8rHoM2o-Gs
+
+{
+    "_id":"65ac3be9324c1a6452331ca7",
+    "status":"active",
+    "thumbnail": "https://unsplash.com/photos/open-book-on-top-of-several-stacked-books-9DaOYUYnOls",
+    "name": "Foul Play",
+    "author": "Fiona McIntosh",
+    "publishYear": "2024",
+    "description": "The heart-stopping new crime thriller in the Detective Jack Hawksworth series by blockbuster author Fiona McIntosh. Superstar footballer Luca Bruni is being blackmailed for a night of lust he swears he didn't participate in...except the ransom photo denies that. A media darling on and off the field, he has powerful charisma, a perfect home life he'll do anything to protect, and more money than he knows what to do with. He's determined to defy the extortion racket. When Detective Superintendent Jack Hawksworth learns that the cunning mastermind behind this crime has already swindled a dozen of the world's most highly prized male athletes, he is instructed to keep the situation from escalating and prevent a media frenzy. Intrigued by the creativity of the crime and the shockwaves it is creating through the global sporting fraternity, Jack begins a journey into a case that has tentacles far more wide-reaching that he ever imagined - and far more deadly. The explosive new blockbuster from an internationally bestselling author. GOODREADS READER REVIEWS for the Jack Hawksworth series - 'Gritty, intense, chilling!' 'Tension lined the pages and the pace was electric.' 'The research is impeccable and the plot enthralling.' 'Fiona's storytelling is phenomenal '"
+}
+
+### delete a book
+DELETE {{bookAPI}}/65ac8286259ca2b7443c662c
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU4NjkzOTcsImV4cCI6MTcwNTg3MDI5N30.5zXnzE4YhVm8Ixi7B9xsYdjHZc-bqPLL9Q5ELamPcCo

@@ -3,11 +3,16 @@ import {
   adminAuth,
   getUserFromAccessJWT,
 } from "../middlewares/authMiddleware.js";
-import { newBookValidation } from "../middlewares/joiValidation.js";
+import {
+  newBookValidation,
+  updateBookValidation,
+} from "../middlewares/joiValidation.js";
 import {
   createBook,
+  deleteABook,
   getAllBooks,
   getOneBook,
+  updateABook,
 } from "../models/book/BookModel.js";
 
 const router = express.Router();
@@ -72,7 +77,46 @@ router.post("/", adminAuth, newBookValidation, async (req, res, next) => {
 });
 
 // update a book
+router.put("/", adminAuth, updateBookValidation, async (req, res, next) => {
+  try {
+    const { _id, ...rest } = req.body;
+    console.log(_id, rest);
+    const book = await updateABook({ _id }, rest);
+
+    book?._id
+      ? res.json({
+          status: "success",
+          message: "Congratulations!!! The book has been updated successfully!",
+          book,
+        })
+      : res.json({
+          status: "error",
+          message:
+            "Sorry!!! We're currently unable to update the book. Please try again later. Thank you!",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // delete a book
+router.delete("/:_id?", adminAuth, async (req, res, next) => {
+  try {
+    const book = await deleteABook(req.params);
+
+    book?._id
+      ? res.json({
+          status: "success",
+          message: "Congratulations!!! The book has been deleted successfully!",
+        })
+      : res.json({
+          status: "error",
+          message:
+            "Sorry!!! We're currently unable to delete the book. Please try again later. Thank you!",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

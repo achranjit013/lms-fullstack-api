@@ -67,3 +67,19 @@ export const newBookValidation = (req, res, next) => {
 
   validationProcessor({ schemaObj, req, res, next });
 };
+// validate update book
+export const updateBookValidation = (req, res, next) => {
+  const schemaObj = {
+    _id: SHORTSTR,
+    status: SHORTSTR,
+    thumbnail: LONGSTRREQ,
+    name: SHORTSTRREQ,
+    author: SHORTSTRREQ,
+    publishYear: SHORTSTRREQ,
+    description: LONGSTRREQ,
+    isAvailable: BOOLTRUE,
+    dueDate: null,
+  };
+
+  validationProcessor({ schemaObj, req, res, next });
+};
