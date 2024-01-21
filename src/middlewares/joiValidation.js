@@ -60,7 +60,7 @@ export const newBookValidation = (req, res, next) => {
     thumbnail: LONGSTRREQ,
     name: SHORTSTRREQ,
     author: SHORTSTRREQ,
-    publishYear: SHORTSTRREQ,
+    publishYear: SHORTNUMREQ,
     isbn: SHORTSTRREQ,
     description: LONGSTRREQ,
   };
@@ -75,7 +75,7 @@ export const updateBookValidation = (req, res, next) => {
     thumbnail: LONGSTRREQ,
     name: SHORTSTRREQ,
     author: SHORTSTRREQ,
-    publishYear: SHORTSTRREQ,
+    publishYear: SHORTNUMREQ,
     description: LONGSTRREQ,
     isAvailable: BOOLTRUE,
     dueDate: null,
