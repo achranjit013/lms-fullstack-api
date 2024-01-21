@@ -30,20 +30,14 @@ router.get("/:_id?", async (req, res, next) => {
     }
 
     const books = _id
-      ? [await getOneBook({ ...filter, _id })]
+      ? await getOneBook({ ...filter, _id })
       : await getAllBooks(filter);
 
-    books?.length > 0
-      ? res.json({
-          status: "success",
-          message: "book list",
-          books,
-        })
-      : res.json({
-          status: "error",
-          message:
-            "Currently, our shelves are awaiting new arrivals. Please stay tuned for exciting additions!",
-        });
+    res.json({
+      status: "success",
+      message: "book list",
+      books,
+    });
   } catch (error) {
     next(error);
   }
