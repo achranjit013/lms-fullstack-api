@@ -15,6 +15,20 @@ Content-Type: application/json
     "email": "n@n.com",
     "password":"1"
 }
+
+### create user (student)
+POST {{userAPI}}
+Content-Type: application/json
+
+{
+    "fname": "Nirajan",
+    "lname": "Ojha",
+    "address": "6-12 Hudson St",
+    "phone": "0123456789",
+    "email": "no@no.com",
+    "password":"1"
+}
+
 ### login user
 POST {{userAPI}}/login
 Content-Type: application/json
@@ -31,7 +45,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6eyJlbWFpbCI6InJA
 
 ### read student 
 GET {{userAPI}}/student-list
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU0OTIwMDMsImV4cCI6MTcwNTQ5MjkwM30.4GtzCIkj_gX0MarTO8wM0EjLcnKOm7i6gilyDZGKXUA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJAci5jb20iLCJpYXQiOjE3MDU5MTAxMzYsImV4cCI6MTcwNTkxMTAzNn0.8P5WGogEIhtKHUNFv3JjsKvfax5SynhIheYVdprAtM4
 
 ### ### read admin
 GET {{userAPI}}/admin-list

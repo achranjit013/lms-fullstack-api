@@ -8,6 +8,7 @@ import {
   createUser,
   getAllUsersByRole,
   getUserByEmail,
+  updateUserRefreshJWT,
 } from "../models/user/UserModel.js";
 import { createJWTs } from "../utils/jwtHelper.js";
 import {
@@ -15,8 +16,39 @@ import {
   refreshAuth,
   userAuth,
 } from "../middlewares/authMiddleware.js";
+import { deleteSession } from "../models/session/SessionModel.js";
 
 const router = express.Router();
+
+// create new user (student)
+router.post("/", newUserValidation, async (req, res, next) => {
+  try {
+    // encrypt password
+    req.body.password = hashPassword(req.body.password);
+
+    // create new user (admin)
+    const user = await createUser(req.body);
+
+    user?._id
+      ? res.json({
+          status: "success",
+          message:
+            "Congratulations!!! Your account has been created! Please login to access the library features.",
+        })
+      : res.json({
+          status: "error",
+          message:
+            "Sorry!!! We're currently unable to create your account. Please try again later or contact admin. Thank you!",
+        });
+  } catch (error) {
+    if (error.message.includes("E11000 duplicate key error collection")) {
+      error.message =
+        "Uh-oh! It seems there's already a user with this email. Please use a different email or try logging in. Thank you!";
+      error.errorCode = 200;
+    }
+    next(error);
+  }
+});
 
 // login user
 router.post("/login", userLoginValidation, async (req, res, next) => {
@@ -53,39 +85,61 @@ router.post("/login", userLoginValidation, async (req, res, next) => {
   }
 });
 
-// ======== below this are all private routers ========
-
-// create new user (admin)
-router.post("/admin-signup", newUserValidation, async (req, res, next) => {
+router.post("/logout", async (req, res, next) => {
   try {
-    // encrypt password
-    req.body.password = hashPassword(req.body.password);
-
-    // define role "admin"
-    req.body.role = "admin";
-
+    const { email, accessJWT } = req.body;
     // create new user (admin)
-    const user = await createUser(req.body);
+    email && (await updateUserRefreshJWT(email, ""));
 
-    user?._id
-      ? res.json({
-          status: "success",
-          message: "Congratulations!!! A new admin account has been created!",
-        })
-      : res.json({
-          status: "error",
-          message:
-            "Sorry!!! We're currently unable to create a new admin account. Please try again later. Thank you!",
-        });
+    accessJWT && (await deleteSession({ accessJWT }));
+
+    res.json({
+      status: "error",
+      message: "Please try again. Thank you!",
+    });
   } catch (error) {
-    if (error.message.includes("E11000 duplicate key error collection")) {
-      error.message =
-        "Uh-oh! It seems there's already a user with this email. Please use a different email or try logging in. Thank you!";
-      error.errorCode = 200;
-    }
     next(error);
   }
 });
+
+// ======== below this are all private routers ========
+
+// create new user (admin)
+router.post(
+  "/admin-signup",
+  adminAuth,
+  newUserValidation,
+  async (req, res, next) => {
+    try {
+      // encrypt password
+      req.body.password = hashPassword(req.body.password);
+
+      // define role "admin"
+      req.body.role = "admin";
+
+      // create new user (admin)
+      const user = await createUser(req.body);
+
+      user?._id
+        ? res.json({
+            status: "success",
+            message: "Congratulations!!! A new admin account has been created!",
+          })
+        : res.json({
+            status: "error",
+            message:
+              "Sorry!!! We're currently unable to create a new admin account. Please try again later. Thank you!",
+          });
+    } catch (error) {
+      if (error.message.includes("E11000 duplicate key error collection")) {
+        error.message =
+          "Uh-oh! It seems there's already a user with this email. Please use a different email or try logging in. Thank you!";
+        error.errorCode = 200;
+      }
+      next(error);
+    }
+  }
+);
 
 // get user info after login
 router.get("/", userAuth, async (req, res, next) => {
